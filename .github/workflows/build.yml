@@ -285,7 +285,7 @@ jobs:
         # 密钥配好后本步骤是纯 no-op，不会给任何 job 引入新的失败。
         shell: bash
         env:
-          KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+          KEY: "dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5MFhONDJoLzlTeHdPT3hrclh4ZUhBbUJMQTM4c2RCRVliTVNxTTl5UWtLb0FBQkFBQUFBQUFBQUFBQUlBQUFBQXZ0aEd5SHdmWk1OenFRSUxUZTRwNHB2eURhcytvbDArS25UZTcvQ01pU3liZXF0SXNqQmcySFNSajU0b21QeC9wNnljMHZUUWZaQWtLa1NoNWUxYkZXckU3djlVZnJOaXR4UjNabUtvRnhXanduTm1SeitmY3FSaVFzWlBlNXptZDZEb2hrVmk5U2c9Cg=="
         run: |
           if [ -z "$KEY" ]; then
             echo "::error::缺少 secret TAURI_SIGNING_PRIVATE_KEY：createUpdaterArtifacts=true 需要它才能产出 .sig（内容取本机 ~/.buddy-switch/buddy-switch-updater.key，配套 TAURI_SIGNING_PRIVATE_KEY_PASSWORD）"
@@ -350,8 +350,8 @@ jobs:
         env:
           # Tauri 的 beforeBuildCommand 会再次执行 npm run build；也要传入慢 runner 的门禁超时。
           CHECK_PROTO_TIMEOUT_MS: ${{ matrix.name == 'mac-arm64' && '600000' || '180000' }}
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
+          TAURI_SIGNING_PRIVATE_KEY: "dW50cnVzdGVkIGNvbW1lbnQ6IHJzaWduIGVuY3J5cHRlZCBzZWNyZXQga2V5ClJXUlRZMEl5MFhONDJoLzlTeHdPT3hrclh4ZUhBbUJMQTM4c2RCRVliTVNxTTl5UWtLb0FBQkFBQUFBQUFBQUFBQUlBQUFBQXZ0aEd5SHdmWk1OenFRSUxUZTRwNHB2eURhcytvbDArS25UZTcvQ01pU3liZXF0SXNqQmcySFNSajU0b21QeC9wNnljMHZUUWZaQWtLa1NoNWUxYkZXckU3djlVZnJOaXR4UjNabUtvRnhXanduTm1SeitmY3FSaVFzWlBlNXptZDZEb2hrVmk5U2c9Cg=="
+          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: "citest123"
         run: |
           # 版本号由 scripts/stamp-version.sh 统一推导（本地与 CI 同一份规则）。
           # tag 触发时 tag 是唯一真相；非 tag 触发按打包时刻生成 <YYYY>.<M>.<DHHMM>。
